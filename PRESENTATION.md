@@ -4,24 +4,16 @@ class: title, middle, center
 <img src="img/opensysconf.png" alt="opensysconf-logo" width="300"/>
 
 ## Open SysConf '19
-# Ansible and Docker for Sysadmin
+# GitOps & ArgoCD
 
 <!-- Notes -->
 ???
-- Кратко о файлах и ансибле
-- Рутинные операции 
-- Массовые изменения
-- Повторяемость
-- Документирование
-- Версионирование
-- История изменений: перестали делаться бэкапы с роутера
-- Galaxy
-- Иммутабельность
-- Идемпотентность
-- Есть у меня два друга: Саня и Колян. Оба работают в аутсорсе - средненький такой аутсорс, по 10-20 компаний на обслуживании. Коля - ответственный, работящий парень. Может задержаться на работе, все делает до конца и правильно. Саша наоборот - лентяй, может на работе сериальчики посмотреть. И вообще - нелюбимый сотрудник у начальника. 
-
-- При переходе с debian на RHEL Коля пошел в магазин. За веревкой и мылом
-- 
+- gitops
+- argostack
+- argocd
+- demo
+- flux
+- flagger
 
 ---
 ## Кто я
@@ -32,7 +24,6 @@ class: title, middle, center
   <tr>
     <td><span style="font-size: 1em;"><i class="fas fa-user fa-fw"></i></span></td>
     <td>Дмитрий Бубнов</td>
-    <td colspan="3" rowspan="7" bgcolor="white"><img src="img/MN-logo.png" alt="MN-logo" width="500"/></td>
   </tr>
   <tr>
     <td><i class="fas fa-home fa-fw"></i></td>
@@ -44,7 +35,7 @@ class: title, middle, center
   </tr>
   <tr>
     <td><i class="fas fa-award fa-fw"></i></td>
-    <td>MTCNA, MTCRE, MTCTCE, MTCWE, MTCINE, CCNA R&S</td>
+    <td>Mikrotik Certified, CCNA R&S, AWS Certified Solutions Architect - Associate</td>
   </tr>
   <tr>
     <td><i class="fas fa-network-wired fa-fw"></i></td>
@@ -52,11 +43,7 @@ class: title, middle, center
   </tr>
   <tr>
     <td><i class="fas fa-chart-line fa-fw"></i></td>
-    <td>Мониторинг</td>
-  </tr>
-  <tr>
-    <td><i class="fas fa-magic fa-fw"></i></td>
-    <td>Автоматизация</td>
+    <td>DevOps</td>
   </tr>
 </table>
 </h3>
@@ -68,94 +55,45 @@ class: title, middle, center
 ## <i class="fas fa-table fa-fw"></i> О чем будем говорить
 ----
 
-- ### Ansible
-- ### Git
-- ### Infrastructure as a Code
-- ### Test-Driven Development
-- ### Docker
+- ### GitOps
+- ### ArgoStack
+- ### ArgoCD
+- ### Demo
 - ### CI/CD
-- ### Культура
 
 
 ---
-## <img src="img/Ansible-logo-1.png" alt="Ansible-logo" width="70"/> Что такое Ansible
+## <img src="img/GitHub-Mark-Light-64px.png" alt="Github-logo" width="70"/> GitOps
 ----
 ### Просто набор файлов!
-
-```
-basic-project
-├── inventory
-│ ├── group_vars
-│ │ └── web.yml
-│ ├── host_vars
-│ │ └── db1.yml
-│ └── hosts
-└── site.yml
-```
+Равитие IaC
+Первое упоминание в 2017 в контексте Kubernetes и CD
+Best practices from git to deploy, manage and monitoring
+- The source of truth
+- Continuous Deployment
 ???
-From [here](https://www.ansible.com/hubfs/2018_Content/AA%20BOS%202018%20Slides/Ansible%20Best%20Practices.pdf)
+From [here](https://www.weave.works/technologies/gitops/)
 
 ---
-## <img src="img/Ansible-logo-1.png" alt="Ansible-logo" width="70"/> Или так
+## <img src="img/argo-stacked-color.png" alt="argo-logo" width="70"/> ArgoStack
 ----
-```
-myapp
-├── roles
-│ ├── myapp
-│ │ ├── tasks
-│ │ │ └── main.yml
-│ │ └── ...
-│ ├── nginx
-│ │ └── ...
-│ └── proxy
-│ └── ...
-└── site.yml
-```
+- ArgoCD
+- ArgoWorkflow
+- ArgoEvents
+- ArgoRollouts
 
 ---
-## <img src="img/Ansible-logo-1.png" alt="Ansible-logo" width="70"/> Inventory
+## <img src="img/argo-stacked-color.png" alt="argo-logo" width="70"/> Resources
 ----
-```
-monitoring ansible_host=10.0.0.11 ansible_user=ansible ansible_port=222  ansible_sudo_pass="{{ vault_ansible_sudo_pass  }}"
-
-[prometheus]
-monitoring
-
-[mikrotik-exporter]
-monitoring
-
-[grafana]
-monitoring
-```
+- Application
+- Workflow / WorkflowTemplate
+- Sensor / EventSource
+- Rollout
 
 ---
-## <img src="img/Ansible-logo-1.png" alt="Ansible-logo" width="70"/> Playbook
+## <img src="img/argo-stacked-color.png" alt="argo-logo" width="70"/> ArgoCD
 ----
-```
-- name: Deploy prometheus
-  hosts: prometheus
-  roles:
-    - ansible-prometheus
-  tags:
-    - prometheus
-    - monitoring
-
-- name: Deploy mikrotik-exporter
-  hosts: mikrotik-exporter
-  roles:
-    - ansible-mikrotik-exporter
-  tags:
-    - monitoring
-    - mikrotik-exporter    
-
-- name: Deploy grafana
-  hosts: grafana
-  roles:
-    - ansible-grafana
-  tags:
-    - grafana
-    - monitoring
-```
+- 
 
 ---
 ## <img src="img/Ansible-logo-1.png" alt="Ansible-logo" width="70"/> Запуск плэйбука
