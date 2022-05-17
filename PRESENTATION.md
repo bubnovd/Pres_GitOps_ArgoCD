@@ -93,7 +93,7 @@ From [here](https://www.weave.works/technologies/gitops/)
 ---
 ## <img src="img/argo-stacked-color.png" alt="argo-logo" width="70"/> ArgoCD
 ----
-- 
+- s
 
 ---
 ## <img src="img/Ansible-logo-1.png" alt="Ansible-logo" width="70"/> Запуск плэйбука
