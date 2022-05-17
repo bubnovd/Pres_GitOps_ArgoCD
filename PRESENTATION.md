@@ -66,6 +66,7 @@ class: title, middle, center
 ## <img src="img/GitHub-Mark-Light-64px.png" alt="Github-logo" width="70"/> GitOps
 ----
 ### Просто набор файлов!
+Flux
 Равитие IaC
 Первое упоминание в 2017 в контексте Kubernetes и CD
 Best practices from git to deploy, manage and monitoring
@@ -93,23 +94,82 @@ From [here](https://www.weave.works/technologies/gitops/)
 ---
 ## <img src="img/argo-stacked-color.png" alt="argo-logo" width="70"/> ArgoCD
 ----
-- s
+
+- Manual or automatic deployment of applications to a Kubernetes cluster
+- Automatic synchronization of application state to the current version of declarative configuration
+- Web user interface and command-line interface (CLI)
+- Ability to visualize deployment issues, detect and remediate configuration drift
+- Role-based access control (RBAC) enabling multi-cluster management
+- Single sign-on (SSO) with providers such as GitLab, GitHub, Microsoft, OAuth2, OIDC, LinkedIn, LDAP, and SAML 2.0
+- ??? Support for webhooks triggering actions in GitLab, GitHub, and BitBucket
+- Plugins
+
 
 ---
-## <img src="img/Ansible-logo-1.png" alt="Ansible-logo" width="70"/> Запуск плэйбука
+## <img src="img/argo-stacked-color.png" alt="argo-logo" width="70"/> Приложение
 ----
-`ansible-playbook -i inventory.yml monitoring-playbook.yml`
-
-или для отдельной роли
-
-`ansible-playbook -i inventory.yml monitoring-playbook.yml --tags=prometheus`
+```
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: prometheus-demo8
+  namespace: argocd
+spec:
+  destination:
+    name: 'yc-demo-cluster'
+    namespace: prometheus
+  source:
+    repoURL: 'https://github.com/REPONAME'
+    path: helm/demo8.cluster/argo-cd/prometheus
+    targetRevision: HEAD 
+    helm:
+      valueFiles:
+      - values-ex.yaml
+  project: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+```
+---
+## <img src="img/argo-stacked-color.png" alt="argo-logo" width="70"/> Приложение с Vault
+----
+```
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: prometheus-demo8
+  namespace: argocd
+spec:
+  destination:
+    name: 'yc-demo-cluster'
+    namespace: prometheus
+  source:
+    repoURL: 'https://github.com/REPONAME'
+    path: helm/demo8.cluster/argo-cd/prometheus
+    targetRevision: HEAD 
+    plugin:
+      name: argocd-vault-plugin-helm
+      env:
+      - name: HELM_RELEASE_NAME
+        value: prometheus
+      - name: helm_args
+        value: -f values-ex.yaml 
+  project: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+```
 
 ---
 ## <img src="img/Ansible-logo-1.png" alt="Ansible-logo" width="70"/> Готовые плэйбуки
 ----
-[cloudalchemy/ansible-prometheus](https://github.com/cloudalchemy/ansible-prometheus)
-
-[geerlingguy/ansible-role-mysql](https://github.com/geerlingguy/ansible-role-mysql)
+В helm/demo8.cluster/argo-cd/prometheus лежит Chart.yaml и values-ex.yaml. Показать тут скриншот
 
 
 
