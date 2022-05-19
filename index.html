@@ -25,7 +25,27 @@
     </script>
     <script>
       var slideshow = remark.create({
-        sourceUrl: 'PRESENTATION.md'
+        ratio: '16:9',
+        sourceUrl: 'PRESENTATION.md',
+        highlightLanguage: 'yaml',
+        highlightStyle: 'solarized-dark'
+        //timer: {
+        //  startOnChange: true,
+        //  resetable: true,
+        //  enabled: true,
+        //  formatter: function (elapsedTime) {
+        //    var left = elapsedTime;
+        //    var millis = left % 1000; left = Math.floor(left / 1000);
+        //    var seconds = left % 60; left = Math.floor(left / 60);
+        //    var minutes = left % 60; left = Math.floor(left / 60);
+        //    var hours = left;
+        //  
+        //    return '' + hours + ':' + ([minutes, seconds]
+        //      .map(function (d) { return '' + d; })
+        //      .map(function (s) { return s.length < 2 ? '0' + s : s; })
+        //      .join(':'));
+        //  }
+        //},
       });
     </script>
   </body>

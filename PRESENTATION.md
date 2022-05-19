@@ -1,10 +1,7 @@
 class: title, middle, center
 <!-- css classes -->
 
-<img src="img/opensysconf.png" alt="opensysconf-logo" width="300"/>
-
-## Open SysConf '19
-# GitOps & ArgoCD
+# GitOps & Argo Stack
 
 <!-- Notes -->
 ???
@@ -58,22 +55,25 @@ class: title, middle, center
 - ### GitOps
 - ### ArgoStack
 - ### ArgoCD
+- ### ArgoWorkflows
 - ### Demo
-- ### CI/CD
 
 
 ---
 ## <img src="img/GitHub-Mark-Light-64px.png" alt="Github-logo" width="70"/> GitOps
 ----
-### Просто набор файлов!
-Flux
-Равитие IaC
-Первое упоминание в 2017 в контексте Kubernetes и CD
-Best practices from git to deploy, manage and monitoring
-- The source of truth
-- Continuous Deployment
+- Первое упоминание в 2017 в контексте Kubernetes и CD
+- Равитие IaC
+- Best practices from git to deploy, manage and monitoring
+
 ???
 From [here](https://www.weave.works/technologies/gitops/)
+
+---
+## <img src="img/GitHub-Mark-Light-64px.png" alt="Github-logo" width="70"/> GitOps
+----
+- Flux
+- ArgoCD
 
 ---
 ## <img src="img/argo-stacked-color.png" alt="argo-logo" width="70"/> ArgoStack
@@ -167,71 +167,33 @@ spec:
 ```
 
 ---
-## <img src="img/Ansible-logo-1.png" alt="Ansible-logo" width="70"/> Готовые плэйбуки
-----
-В helm/demo8.cluster/argo-cd/prometheus лежит Chart.yaml и values-ex.yaml. Показать тут скриншот
-
-
-
-### Тысячи их
-
-[Ansible Galaxy](https://galaxy.ansible.com/)
-
----
-## <i class="fas fa-wrench fa-fw"></i> Нам срочно нужно 5 настроенных виртуалок
-----
-
---
-- ### С установленными обновлениями
-
---
-- ### С юзерами, группами и ключами
-
---
-- ### С настроенным фаерволом
-
---
-- ### С установленной и первоначально настроенной MySQL
-
---
-- ### Не забудь добавить их в мониторинг
-
-
----
-## <i class="fas fa-wrench fa-fw"></i> Нам срочно нужно 5 настроенных виртуалок
+## <img src="img/argo-stacked-color.png" alt="argo-logo" width="70"/> Приложение с Vault
 ----
 
 ```
-- name: Postinstall configure
-  hosts: all
-  roles:
-    - postinstall-config
-  tags:
-    - postinstall
-
-- name: Deploy MySQL
-  hosts: mysql
-  roles:
-    - ansible-role-mysql
-  tags:
-    - database
-    - mysql
+...
+secret_id: <path:kv/path/secret#id>
+...
 ```
---
-## Автоматизация рутинных действий
 
 ---
-## <i class="fas fa-wrench fa-fw"></i> Нашли баг в Mikrotik, срочно закрой доступ к роутерам!
+## <img src="img/argo-stacked-color.png" alt="argo-logo" width="70"/> ArgoWorkflows
 ----
 
---
-- ### 10 клиентов по 10 роутеров у каждого
+- Define workflows where each step in the workflow is a container.
+- Model multi-step workflows as a sequence of tasks or capture the dependencies between tasks using a graph (DAG).
+- Easily run compute intensive jobs for machine learning or data processing in a fraction of the time using Argo Workflows on Kubernetes.
+- Run CI/CD pipelines natively on Kubernetes without configuring complex software development products.
 
---
-- ### Часть может быть оффлайн
+---
+## <img src="img/argo-stacked-color.png" alt="argo-logo" width="70"/> ArgoWorkflows
+----
 
---
-- ### При повторном запуске не должны создаваться дублирующие правила
+- Define workflows where each step in the workflow is a container.
+- Model multi-step workflows as a sequence of tasks or capture the dependencies between tasks using a graph (DAG).
+- Easily run compute intensive jobs for machine learning or data processing in a fraction of the time using Argo Workflows on Kubernetes.
+- Ru
+
 
 ---
 ## <i class="fas fa-wrench fa-fw"></i> Нашли баг в Mikrotik, срочно закрой доступ к роутерам!
