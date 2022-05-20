@@ -101,7 +101,7 @@ From [here](https://www.weave.works/technologies/gitops/)
 - Ability to visualize deployment issues, detect and remediate configuration drift
 - Role-based access control (RBAC) enabling multi-cluster management
 - Single sign-on (SSO) with providers such as GitLab, GitHub, Microsoft, OAuth2, OIDC, LinkedIn, LDAP, and SAML 2.0
-- ??? Support for webhooks triggering actions in GitLab, GitHub, and BitBucket
+- Support for webhooks triggering actions in GitLab, GitHub, and BitBucket
 - Plugins
 
 ---
@@ -372,14 +372,9 @@ export AWS_SECRET_ACCESS_KEY=some_secret
 
 
 ---
-## Demo
-
-Возможно, я уже выложил плэйбуки для деплоя мониторинга сети на  [GitHub](https://github.com/devi1/ansible)
-
----
 ## <i class="fas fa-info fa-fw"></i> Info
 
-#### Технологии
+#### Workshops
 -   [Katacoda ArgoWorkflow](https://www.katacoda.com/argoproj/courses/argo-workflows/)
 -   [Katacoda ArgoCD](https://www.katacoda.com/vikas-poddar-slalom/scenarios/session-09-lab3-gitops-argocd)
 
