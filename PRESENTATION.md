@@ -74,7 +74,7 @@ From [here](https://www.weave.works/technologies/gitops/)
 ----
 - Flux
 - ArgoCD
-
+## CNCF Incubating
 ---
 ## <img src="img/argo-stacked-color.png" alt="argo-logo" width="70"/> ArgoStack
 ----
@@ -87,7 +87,7 @@ From [here](https://www.weave.works/technologies/gitops/)
 ## <img src="img/argo-stacked-color.png" alt="argo-logo" width="70"/> Resources
 ----
 - Application
-- Workflow / WorkflowTemplate
+- Workflow / WorkflowTemplate / CronWorkflow
 - Sensor / EventSource
 - Rollout
 
@@ -104,9 +104,84 @@ From [here](https://www.weave.works/technologies/gitops/)
 - ??? Support for webhooks triggering actions in GitLab, GitHub, and BitBucket
 - Plugins
 
+---
+## <img src="img/argo-stacked-color.png" alt="argo-logo" width="70"/> ArgoCD
+----
+<img src="img/argocd-apps.png" alt="argocd-apps" width="1000"/>
 
 ---
-## <img src="img/argo-stacked-color.png" alt="argo-logo" width="70"/> Приложение
+## <img src="img/argo-stacked-color.png" alt="argo-logo" width="70"/> ArgoCD
+----
+<img src="img/argo-app.png" alt="argocd-app" width="1000"/>
+
+???
+статусы ресурсов - аутофсинк
+---
+## <img src="img/argo-stacked-color.png" alt="argo-logo" width="70"/> ArgoCD
+----
+<img src="img/argo-app-net.png" alt="argocd-app-net" width="1000"/>
+
+
+---
+## <img src="img/argo-stacked-color.png" alt="argo-logo" width="70"/> ArgoCD
+----
+<img src="img/argo-app-pods.png" alt="argocd-app-pods" width="900"/>
+
+
+---
+## <img src="img/argo-stacked-color.png" alt="argo-logo" width="70"/> ArgoCD
+----
+<img src="img/argocd-diff.png" alt="argocd-diff" width="760"/>
+
+
+---
+## <img src="img/argo-stacked-color.png" alt="argo-logo" width="70"/> ArgoCD
+----
+<img src="img/argocd-logs.png" alt="argocd-logs" width="1000"/>
+
+
+---
+## <img src="img/argo-stacked-color.png" alt="argo-logo" width="70"/> ArgoCD
+----
+### Deploy from:
+
+- Kustomize applications
+- Helm charts
+- Ksonnet applications
+- A directory of YAML/JSON/Jsonnet manifests, including Jsonnet.
+- Any custom config management tool configured as a config management plugin
+
+
+---
+## <img src="img/argo-stacked-color.png" alt="argo-logo" width="70"/> Application
+----
+```
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: prometheus-demo8
+  namespace: argocd
+spec:
+  destination:
+    name: 'yc-demo-cluster'
+    namespace: prometheus
+  source:
+    chart: prometheus-community/kube-prometheus-stack
+    repoURL: https://prometheus-community.github.io/helm-charts
+    targetRevision: 35.2.0
+    helm:
+      releaseName: prometheus
+  project: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+```
+
+---
+## <img src="img/argo-stacked-color.png" alt="argo-logo" width="70"/> Application
 ----
 ```
 apiVersion: argoproj.io/v1alpha1
@@ -134,8 +209,9 @@ spec:
       - CreateNamespace=true
 ```
 ---
-## <img src="img/argo-stacked-color.png" alt="argo-logo" width="70"/> Приложение с Vault
+## <img src="img/argo-stacked-color.png" alt="argo-logo" width="70"/> Application with Vault
 ----
+[Argo CD Vault Plugin ](https://argocd-vault-plugin.readthedocs.io/en/stable/)
 ```
 apiVersion: argoproj.io/v1alpha1
 kind: Application
@@ -167,7 +243,7 @@ spec:
 ```
 
 ---
-## <img src="img/argo-stacked-color.png" alt="argo-logo" width="70"/> Приложение с Vault
+## <img src="img/argo-stacked-color.png" alt="argo-logo" width="70"/> Application wiith Vault
 ----
 
 ```
@@ -185,304 +261,133 @@ secret_id: <path:kv/path/secret#id>
 - Easily run compute intensive jobs for machine learning or data processing in a fraction of the time using Argo Workflows on Kubernetes.
 - Run CI/CD pipelines natively on Kubernetes without configuring complex software development products.
 
+???
+вопрос - Jenkins - GitLab?
 ---
 ## <img src="img/argo-stacked-color.png" alt="argo-logo" width="70"/> ArgoWorkflows
 ----
 
-- Define workflows where each step in the workflow is a container.
-- Model multi-step workflows as a sequence of tasks or capture the dependencies between tasks using a graph (DAG).
-- Easily run compute intensive jobs for machine learning or data processing in a fraction of the time using Argo Workflows on Kubernetes.
-- Ru
+<img src="img/workflow.png" alt="workflow" width="1000"/>
 
 
 ---
-## <i class="fas fa-wrench fa-fw"></i> Нашли баг в Mikrotik, срочно закрой доступ к роутерам!
+## <img src="img/argo-stacked-color.png" alt="argo-logo" width="70"/> ArgoWorkflows
 ----
 ```
-  - name: add allowed addresses to list
-    routeros_command:
-      commands: "/ip firewall address-list add list=allow address={{ item }}"
-    with_items:
-      - "{{ routeros_list_allow }}"
-
-  - name: drop input except allow list
-    routeros_command:
-      commands: "{{ item }}"
-    with_items:
-      - /ip firewall filter add chain=input src-address-list=allow action=accept
-      - /ip firewall filter add chain=input action=drop
-```
-
---
-## Массовые изменения
-
-
----
-## <i class="fas fa-wrench fa-fw"></i> Помнишь, мы настраивали IPSec три месяца назад? Надо сделать так же новому клиенту
-----
-
---
-- ### А на чем мы делали? Гугл показывает libreswan, strongswan, openswan, xl2tpd
-
---
-- ### А как мы там роуты то прописали?
-
---
-- ### Что-то не заводится сразу, видимо что-то забыли
-
-
----
-## <i class="fas fa-wrench fa-fw"></i> Помнишь, мы настраивали IPSec три месяца назад? Надо сделать так же новому клиенту
-----
-```
-- name: Magic playbook
-  hosts: сидящие_в_зале
-  roles: 
-    - тут_должны
-    - быть_роли
-    - но_я_думаю
-    - вы_и_так
-    - все_поняли
-```
---
-## Повторяемость
-
-
----
-## <i class="fas fa-wrench fa-fw"></i> У нас новый сотрудник. Покажи ему как у нас все работает
-----
-
---
-- ### 10 клиентов
-
---
-- ### Естественно, все они разные
-
---
-- ### Документация. Какая документация?
-
-
----
-## <i class="fas fa-wrench fa-fw"></i> У нас новый сотрудник. Покажи ему как у нас все работает
-----
-cat ansible/group_vars/prometheus.yml
-```
-prometheus_storage_retention: "500d"
-prometheus_storage_retention_size: "40GB"
-prometheus_web_listen_address: "localhost:9090"
-
-prometheus_alertmanager_config:
-  - scheme: http
-    static_configs:
-      - targets:
-        - "127.0.0.1:9093"
-
-prometheus_scrape_configs:
-  - job_name: "mikrotik"
-    scrape_timeout: "60s"
-    scrape_interval: "120s"
-    metrics_path: "/metrics"
-    static_configs:
-      - targets:
-        - "127.0.0.1:9436"
+apiVersion: argoproj.io/v1alpha1
+kind: Workflow
+metadata:
+  generateName: hello-world-  # Name of this Workflow
+spec:
+  entrypoint: whalesay        # Defines "whalesay" as the "main" template
+  templates:
+  - name: whalesay            # Defining the "whalesay" template
+    container:
+      image: docker/whalesay
+      command: [cowsay]
+      args: ["hello world"]   # This template runs "cowsay" in the "whalesay" image with arguments "hello world"
 ```
 
 ---
-## <i class="fas fa-wrench fa-fw"></i> У нас новый сотрудник. Покажи ему как у нас все работает
-----
-### Документирование
-
----
-## <i class="fas fa-wrench fa-fw"></i> Перестал работать бэкап
+## <img src="img/argo-stacked-color.png" alt="argo-logo" width="70"/> ArgoWorkflows CI
 ----
 
---
-- ### Я что-то нажал и главный роутер у клиента сломался
-
---
-- ### С 15 июля нет бэкапов с микротиков
-
---
-- ### СРОЧНО ВОССТАНОВИ!!!!111один
+[CI Workflow](https://github.com/argoproj/argo-workflows/blob/master/examples/ci-workflowtemplate.yaml)
 
 ---
-## <i class="fas fa-wrench fa-fw"></i> Перестал работать бэкап
-----
-<img src="img/git-diff.png" alt="git-diff"/>
-
----
-## <i class="fas fa-wrench fa-fw"></i> Перестал работать бэкап
-----
-### <img src="img/Git-Icon-Black.png" alt="git-logo" width="50"/> Git 
-### Версионирование. История изменений
-
----
-## <i class="fas fa-spinner fa-fw"></i> Так какие задачи решает Ansible?
+## <img src="img/argo-stacked-color.png" alt="argo-logo" width="70"/> ArgoWorkflows
 ----
 
-### 1. Автоматизация рутинных действий
-### 2. Массовые изменения
-### 3. Повторяемость конфигураций
-### 4. Документирование
-### 5. Версионирование. История изменений
-
+```
+- name: git
+  inputs:
+    artifacts:
+      name: source
+      path: /src
+      git:
+        repo: https://github.com/repo
+        depth: 1
+        revision: master
+        usernameSecret:
+          name: github-creds
+          key: user
+        passwordSecret:
+          name: github-creds
+          key: password
+  container:
+    ...
+```
 
 ---
-class: title, middle, center
-
-# Test Driven Development
-
----
-##  <i class="fas fa-vial fa-fw"></i> TDD
+## <img src="img/argo-stacked-color.png" alt="argo-logo" width="70"/> ArgoWorkflows Artifacts
 ----
+- Artifactory
+- Archive
+- S3 / GCS / OSS
+- Git
+- HDFS
+- HTTP
+- Raw
+- From previous step
 
-- ### Test Driven Development
-- ### Неплохо было бы проверять плэйбуки перед их выпуском на боевую инфраструктуру
-- ### Для этого есть специальные инструменты
 
 ---
-## <i class="fas fa-vial fa-fw"></i> Разработка через тесты
+## <img src="img/argo-stacked-color.png" alt="argo-logo" width="70"/> ArgoWorkflows with Vault
 ----
-
-<table>
-  <tr>
-    <td>Testinfra</td>
-    <td colspan="2" rowspan="3"><img src="img/testinfra.png" alt="testinfra-logo" width="500"/></td>
-  </tr>
-  <tr>
-    <td>Пишем тесты, проверяющие систему</td>
-  </tr>
-  <tr>
-    <td>Подгоняем плэйбуки под выполнение этих тестов</td>
-  </tr>
-</table>
+```
+- name: vault-secrets
+  metadata:
+    annotations:
+      vault.hashicorp.com/agent-inject: 'true'
+      vault.hashicorp.com/agent-extra-secret: 'vault-agent-approle-id'
+      vault.hashicorp.com/auth-type: 'approle'
+      vault.hashicorp.com/auth-path: 'auth/approle/'
+      vault.hashicorp.com/role: 'argocd'
+      vault.hashicorp.com/namespace: argo
+      vault.hashicorp.com/auth-config-role-id-file-path: '/vault/custom/role-id'
+      vault.hashicorp.com/auth-config-secret-id-file-path: '/vault/custom/secret-id'
+      vault.hashicorp.com/secret-volume-path: "/tmp"
+      vault.hashicorp.com/agent-inject-secret-terraform-states-store: 'kv/s3/terraform-states-store'
+      vault.hashicorp.com/agent-inject-template-terraform-states-store: |
+        {{- with secret "kv/s3/terraform-states-store" -}}
+        export AWS_ACCESS_KEY_ID={{ .Data.data.access_key }}
+        export AWS_SECRET_ACCESS_KEY={{ .Data.data.secret_key }}
+        {{- end }}
+  script:
+    source: |
+      source /tmp/terraform-states-store
+...
+```
 
 ---
-## <i class="fas fa-hat-wizard fa-fw"></i> Molecule
+## <img src="img/argo-stacked-color.png" alt="argo-logo" width="70"/> ArgoWorkflows with Vault
 ----
+cat /tmp/terraform-states-store:
+```bash
+export AWS_ACCESS_KEY_ID=some_key
+export AWS_SECRET_ACCESS_KEY=some_secret
+```
 
-<table>
-  <tr>
-    <td>Первоначальная инициализация роли</td>
-    <td colspan="2" rowspan="4"><img src="img/molecule.png" alt="molecule-logo" width="500"/></td>
-  </tr>
-  <tr>
-    <td>Тесты на идемпотентность</td>
-  </tr>
-  <tr>
-    <td>Верификация</td>
-  </tr>
-  <tr>
-    <td>Driver/Provider</td>
-  </tr>
-</table>
+[Creating an Argo Workflow With Vault Integration Using Helm](https://cloud.redhat.com/blog/creating-an-argo-workflow-with-vault-integration-using-helm)
 
 
 ---
-## <i class="fas fa-hat-wizard fa-fw"></i> Molecule. Первоначальная инициализация роли
-----
-
-### В случае указания новой роли создает типовую структуру для роли ansible
-
----
-## <i class="fas fa-hat-wizard fa-fw"></i> Molecule. Тесты на идемпотентность
-----
-
-###  При повторном запуске роли не должно быть произведено каких-либо изменений
-
----
-## <i class="fas fa-hat-wizard fa-fw"></i> Molecule. Верификация
-----
-
-- ### Автоматический прогон тестов
-
-<img src="img/testinfra.png" alt="testinfra-logo" width="500"/>
-
-
----
-## <i class="fas fa-hat-wizard fa-fw"></i> Molecule. Driver/Provider
-----
-
-- ### Необязательно гонять тесты на заранее созданных виртуалках
-- ### Vagrant
-  - ### Libvirt
-  - ### Parallels
-  - ### VirtualBox (default)
-  - ### VMware Fusion
-- ### Docker
-
----
-class: title, middle, center
-
-## Docker
-
----
-## <i class="fab fa-docker fa-fw"></i> Docker
-----
-
-- ### Позволяет запускать приложения в изолированном окружении
-- ### Прекрасный инструмент для "пощупать как оно работает"
-- ### Поматросил и бросил - контейнер не стоит ничего
-- ### Легко мигрировать на другую машину
-
---
-- ### ... или в другую серверную
-
---
-- ### ... или в облако AWS, GCP, Azure, ...
-
----
-class: title, middle, center
-
-# Continuous Integration and Continuous Deployment
-
----
-## <i class="fab fa-gitlab fa-fw"></i> CI/CD
-----
-
-- ### А зачем мне вся эта куча технологий, если и так всё работает?
-- ### Но ведь уходит много времени на: 
-  - ### написать плэйбук
-  - ### написать тесты
-  - ### запустить тесты
-  - ### перенести конфиг на боевую инфраструктуру
-  - ### настроить всю эту чепуху
-
-
----
-## <i class="fab fa-gitlab fa-fw"></i> CI/CD
-----
-
-  - ### pipeline
-  - ### Все делается автоматически:
-    - ### git commit запускает тесты
-    - ### при успешном прохождении тестов код разливается на prod
-    - ### ваше время тратится только на единоразовую настройку системы
-    - ### ... ну ОК, ещё на написание тестов и плэйбуков
-
----
-class: title, middle, center
-
 ## Demo
 
 Возможно, я уже выложил плэйбуки для деплоя мониторинга сети на  [GitHub](https://github.com/devi1/ansible)
 
 ---
-## <i class="fas fa-info fa-fw"></i> Информация
+## <i class="fas fa-info fa-fw"></i> Info
 
 #### Технологии
-
--   [Ansible Galaxy](https://galaxy.ansible.com)
--   [Ansible Community](https://www.ansible.com/community)
--   [Awesome Ansible List](https://github.com/geerlingguy/awesome-ansible)
--   [Molecule](https://habr.com/ru/post/437216/)
--   [Docker](https://www.digitalocean.com/community/tutorials/the-docker-ecosystem-an-overview-of-containerization)
+-   [Katacoda ArgoWorkflow](https://www.katacoda.com/argoproj/courses/argo-workflows/)
+-   [Katacoda ArgoCD](https://www.katacoda.com/vikas-poddar-slalom/scenarios/session-09-lab3-gitops-argocd)
 
 
-#### Презентация
-https://devi1.github.io/Pres_Ansible_docker/
+#### Presentation
+https://bubnovd.github.io/Pres_GitOps_ArgoCD/
 
-#### Инструменты, которыми сделана эта презентация
+#### Tools for presentation
 
 -  [markdown](https://daringfireball.net/projects/markdown/)
 -  [remark](https://github.com/gnab/remark)
@@ -490,10 +395,10 @@ https://devi1.github.io/Pres_Ansible_docker/
 -  [Visual Studio Code](https://code.visualstudio.com/)
 -  [hands](http://www.bubnovd.net)
 ---
-## <i class="fas fa-hands-helping fa-fw"></i> Контакты
+## <i class="fas fa-hands-helping fa-fw"></i> Contacts
 ----
 
-### <i class="fas fa-link fa-fw"></i> https://mikrotik-ninja.ru
+### <i class="fas fa-link fa-fw"></i> https://bubnovd.net
 ### <i class="fab fa-telegram-plane fa-fw"></i> @mikrotikninja
 ### <i class="fab fa-telegram-plane fa-fw"></i> @sysadminka
 ### <i class="fab fa-telegram-plane fa-fw"></i> @bubnov
