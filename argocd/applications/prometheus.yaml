@@ -8,7 +8,7 @@ spec:
     name: 'in-cluster'
     namespace: prometheus
   source:
-    chart: prometheus-community/kube-prometheus-stack
+    chart: kube-prometheus-stack
     repoURL: https://prometheus-community.github.io/helm-charts
     targetRevision: 35.2.0
     helm:
