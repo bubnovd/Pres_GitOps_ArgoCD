@@ -13,8 +13,11 @@
     color: #5aa648;
   }
   
-  h2{
+  h2 {
     margin-bottom: 2rem;
+  }
+  li {
+    margin-bottom: 1rem;
   }
   
   
