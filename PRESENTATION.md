@@ -165,7 +165,7 @@ spec:
   destination:
     name: 'yc-demo-cluster'
     namespace: prometheus
-  source:
+  source:                                                   # < App from chart
     chart: prometheus-community/kube-prometheus-stack
     repoURL: https://prometheus-community.github.io/helm-charts
     targetRevision: 35.2.0
@@ -199,7 +199,7 @@ spec:
     targetRevision: HEAD 
     helm:
       valueFiles:
-      - values-ex.yaml
+      - values-ex.yaml                              # < Helm values
   project: default
   syncPolicy:
     automated:
@@ -227,7 +227,7 @@ spec:
     path: helm/demo8.cluster/argo-cd/prometheus
     targetRevision: HEAD 
     plugin:
-      name: argocd-vault-plugin-helm
+      name: argocd-vault-plugin-helm       # < Use plugin
       env:
       - name: HELM_RELEASE_NAME
         value: prometheus
@@ -304,7 +304,7 @@ spec:
     artifacts:
       name: source
       path: /src
-      git:
+      git:                                  # < Git
         repo: https://github.com/repo
         depth: 1
         revision: master
@@ -338,6 +338,7 @@ spec:
 - name: vault-secrets
   metadata:
     annotations:
+      # General Vault config
       vault.hashicorp.com/agent-inject: 'true'
       vault.hashicorp.com/agent-extra-secret: 'vault-agent-approle-id'
       vault.hashicorp.com/auth-type: 'approle'
@@ -346,7 +347,8 @@ spec:
       vault.hashicorp.com/namespace: argo
       vault.hashicorp.com/auth-config-role-id-file-path: '/vault/custom/role-id'
       vault.hashicorp.com/auth-config-secret-id-file-path: '/vault/custom/secret-id'
-      vault.hashicorp.com/secret-volume-path: "/tmp"
+      #
+      vault.hashicorp.com/secret-volume-path: "/tmp"                        # < Dir with secrets
       vault.hashicorp.com/agent-inject-secret-terraform-states-store: 'kv/s3/terraform-states-store'
       vault.hashicorp.com/agent-inject-template-terraform-states-store: |
         {{- with secret "kv/s3/terraform-states-store" -}}
