@@ -13,7 +13,7 @@ spec:
     path: argocd/applications
     targetRevision: masterclass
     directory:
-      recurse: true
+      recurse: false
   syncPolicy:
     automated:
       prune: true
