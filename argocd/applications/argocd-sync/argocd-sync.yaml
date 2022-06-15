@@ -1,11 +1,23 @@
-project: default
-source:
-  repoURL: 'https://github.com/bubnovd/Pres_GitOps_ArgoCD'
-  path: argocd/applications/sock-shop
-  targetRevision: masterclass
-destination:
-  server: 'https://kubernetes.default.svc'
-  namespace: sock-shop
-syncPolicy:
-  syncOptions:
-    - CreateNamespace=true
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: argocd-sync
+  namespace: argocd
+spec:
+  project: default
+  destination:
+    namespace: argocd
+    server: https://kubernetes.default.svc
+  source:
+    repoURL: 'https://github.com/bubnovd/Pres_GitOps_ArgoCD'
+    path: argocd/applications/sock-shop
+    targetRevision: masterclass
+    directory:
+      recurse: true
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - ApplyOutOfSyncOnly=false
+      - CreateNamespace=true
