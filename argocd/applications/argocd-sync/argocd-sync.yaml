@@ -1,0 +1,11 @@
+project: default
+source:
+  repoURL: 'https://github.com/bubnovd/Pres_GitOps_ArgoCD'
+  path: argocd/applications/sock-shop
+  targetRevision: masterclass
+destination:
+  server: 'https://kubernetes.default.svc'
+  namespace: sock-shop
+syncPolicy:
+  syncOptions:
+    - CreateNamespace=true
