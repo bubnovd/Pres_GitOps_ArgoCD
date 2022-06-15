@@ -10,7 +10,7 @@ spec:
     server: https://kubernetes.default.svc
   source:
     repoURL: 'https://github.com/bubnovd/Pres_GitOps_ArgoCD'
-    path: argocd/applications/sock-shop
+    path: argocd/applications
     targetRevision: masterclass
     directory:
       recurse: true
