@@ -1,0 +1,24 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt"
+  name: guestbook
+  namespace: guestbook
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: ww.bubnovd.net
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: guestbook-ui
+            port:
+              number: 80
+  tls:
+  - hosts:
+    - ww.bubnovd.net
+    secretName: letsencrypt
