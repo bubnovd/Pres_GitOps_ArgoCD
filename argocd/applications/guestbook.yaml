@@ -11,7 +11,7 @@ spec:
   source:
     repoURL: 'https://github.com/bubnovd/Pres_GitOps_ArgoCD'
     path: argocd/manifests/guestbook
-    targetRevision: HEAD
+    targetRevision: masterclass
     directory:
       recurse: true
   syncPolicy:
