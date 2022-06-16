@@ -9,6 +9,9 @@ spec:
     namespace: vault
     server: https://kubernetes.default.svc
   source:
+    helm:
+      valueFiles:
+      - values-ex.yaml
     repoURL: 'https://github.com/bubnovd/Pres_GitOps_ArgoCD'
     path: argocd/manifests/vault
     targetRevision: master
