@@ -15,8 +15,6 @@ spec:
     repoURL: 'https://github.com/bubnovd/Pres_GitOps_ArgoCD'
     path: argocd/manifests/vault
     targetRevision: master
-    directory:
-      recurse: true
   syncPolicy:
     automated:
       prune: true
