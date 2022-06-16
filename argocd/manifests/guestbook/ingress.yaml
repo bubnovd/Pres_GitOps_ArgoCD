@@ -1,8 +1,8 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-#  annotations:
-#    cert-manager.io/cluster-issuer: "letsencrypt"
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt"
   name: guestbook
   namespace: guestbook
 spec:
@@ -18,7 +18,7 @@ spec:
             name: guestbook-ui
             port:
               number: 80
-#  tls:
-#  - hosts:
-#    - argocd.bubnovd.net
-#    secretName: letsencrypt
+  tls:
+  - hosts:
+    - ww.bubnovd.net
+    secretName: letsencrypt
