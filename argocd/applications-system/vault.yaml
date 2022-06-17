@@ -13,10 +13,8 @@ spec:
     path: argocd/manifests/vault
     targetRevision: master
     helm:
-      valueFiles: 
+      valueFiles:
       - values-ex.yaml
-    directory:
-      recurse: true
   syncPolicy:
     automated:
       prune: true
