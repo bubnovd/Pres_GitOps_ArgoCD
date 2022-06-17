@@ -12,6 +12,9 @@ spec:
     repoURL: 'https://github.com/bubnovd/Pres_GitOps_ArgoCD'
     path: argocd/manifests/vault
     targetRevision: master
+    helm:
+      valueFiles: 
+      - values-ex.yaml
     directory:
       recurse: true
   syncPolicy:
