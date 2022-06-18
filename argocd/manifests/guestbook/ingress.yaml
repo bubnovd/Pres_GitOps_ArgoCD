@@ -17,7 +17,7 @@ spec:
           service:
             name: guestbook-ui
             port:
-              number: 808
+              number: 80
   tls:
   - hosts:
     - ww.bubnovd.net
