@@ -1,0 +1,24 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: vault
+  namespace: argocd
+spec:
+  project: default
+  destination:
+    namespace: vault
+    server: https://kubernetes.default.svc
+  source:
+    repoURL: 'https://github.com/bubnovd/Pres_GitOps_ArgoCD'
+    path: argocd/manifests/vault
+    targetRevision: master
+    helm:
+      valueFiles:
+      - values-ex.yaml
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - ApplyOutOfSyncOnly=false
+      - CreateNamespace=true
